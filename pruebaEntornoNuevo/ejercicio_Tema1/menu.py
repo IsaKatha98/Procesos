@@ -58,6 +58,32 @@ while num!=0 :
         #modificamos un post
         modAll(url, post, userId,title,body)
 
+     elif num==5:
+         
+         print ("Introduzca el número del post que desea buscar:")
+         post=int (input())
+
+         print ("Introduzca qué tipo de dato quiere cambiar (userId, title, body):")
+         type=(input())
+
+         print("Introduzca el dato modificado:")
+         data=(input())
+
+         #modificamos un dato concreto de esa publicación.
+         modPost(url, post, type, data)
+
+     elif num==6:
+
+          print("Introduzca el número del post que quiere eliminar:")
+          post=int(input())
+
+          deletePost (url, post)
+     
+     elif num==0:
+         
+         print ("El programa se ha cerrado.")
+
+
 
 
 

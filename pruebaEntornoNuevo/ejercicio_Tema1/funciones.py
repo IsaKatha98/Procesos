@@ -2,7 +2,6 @@ import requests
 url= "https://jsonplaceholder.typicode.com/posts" 
 
 
-
 def getAll(url) :
 
     response=requests.get (url)
@@ -29,7 +28,9 @@ def getPost (url, numPub):
         dic=response.json()
 
         for clave in dic:
-            print (clave;":","dic[clave]")
+            print (clave ,":",dic[clave])
+            print()
+
 
     else:
         print("Ha habido un error")
@@ -49,13 +50,56 @@ def addPost(url, userId, title, body):
 
 def modAll(url, post, userid, title, body):
 
+    #escribimos el post con la info nueva
+    dic ={'userId': userId, 'title':title,'body':body}
 
-def modPost():
+    #modificamos la info del post que se ha pedido
+    response=requests.put(url+"/"+post, json=dic)
+
+    if (response.status_code==200):
+        
+        #si ha ido bien, llamamos a ese post
+        getPost(url+"/"+post)
 
 
-def deleteData():
+    else:
+        print("Ha habido un error")
 
 
-def deletePost():
+def modPost(url, post, type, data):
+
+    #en caso de que type sea userId, tenemos que pasar data a it.
+    if type=="userbody":
+        data=int(data)
+    
+    #escribimos lo que vayamnos a modificar
+    dic={type:data}
+
+    #llamamos al post.
+    response=requests.patch(url+"/"+post, json=dic)
+
+    if (response.status_code==200):
+        
+        #si ha ido bien, llamamos a ese post
+        getPost(url+"/"+post)
+
+
+    else:
+        print("Ha habido un error")
+
+
+def deletePost(url, post):
+
+    response=requests.delete(url+"/"+post)
+
+    if (response.status_code==200):
+        
+        #si ha ido bien, confirmamos
+        print("Se confirma el borrado del post:",post)
+
+
+    else:
+        print("Ha habido un error")
+
     
 
