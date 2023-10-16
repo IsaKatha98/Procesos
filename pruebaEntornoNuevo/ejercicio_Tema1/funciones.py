@@ -20,9 +20,10 @@ def getAll(url) :
     else:
         print("Ha habido un error")
 
-def getPost (url, numPub):
+def getPost (url, post):
 
-    response= requests.get(url+"/"+numPub)
+    post =str(post)
+    response= requests.get(url+"/"+post)
    
     if (response.status_code==200):
         dic=response.json()
@@ -36,20 +37,23 @@ def getPost (url, numPub):
         print("Ha habido un error")
 
 def addPost(url, userId, title, body):
-
+    
     dic ={'userId': userId, 'title':title,'body':body}
     response=requests.post (url, json=dic)
 
+    post="101"
+    
     if (response.status_code==201):
        
-       getPost(url+"/"+101)
+       getPost(url, post)
 
     else:
         print("Ha habido un error")
 
 
-def modAll(url, post, userid, title, body):
+def modAll(url, post, userId, title, body):
 
+    post =str(post)
     #escribimos el post con la info nueva
     dic ={'userId': userId, 'title':title,'body':body}
 
@@ -68,6 +72,7 @@ def modAll(url, post, userid, title, body):
 
 def modPost(url, post, type, data):
 
+    post =str(post)
     #en caso de que type sea userId, tenemos que pasar data a it.
     if type=="userbody":
         data=int(data)
@@ -81,7 +86,7 @@ def modPost(url, post, type, data):
     if (response.status_code==200):
         
         #si ha ido bien, llamamos a ese post
-        getPost(url+"/"+post)
+        getPost(url, post)
 
 
     else:
@@ -90,6 +95,7 @@ def modPost(url, post, type, data):
 
 def deletePost(url, post):
 
+    post =str(post)
     response=requests.delete(url+"/"+post)
 
     if (response.status_code==200):

@@ -56,7 +56,7 @@ while num!=0 :
         body= input()
 
         #modificamos un post
-        modAll(url, post, userId,title,body)
+        modAll(url, post, userId, title, body)
 
      elif num==5:
          
