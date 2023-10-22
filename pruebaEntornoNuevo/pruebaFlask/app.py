@@ -47,6 +47,15 @@ def addCountry():
     
     return {"error":"Request must be JSON"}, 415
 
+@app.put("/countries/>int:id>")
+def modifycountry (id):
+    if requests.is_json:
+        newCountry=request.get_json()
+        for country in countries:
+            if country ["id"]==id:
+                country[element]=newCountry[element]
+                return country,200
+    return{"error":"request must be JSON"},415
 
 
     

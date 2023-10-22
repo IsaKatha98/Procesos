@@ -1,4 +1,4 @@
-import requests
+from requests import *
 
 url= "http://localhost:5050/countries" 
 
