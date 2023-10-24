@@ -1,6 +1,6 @@
 [
     {"id":1, "name":"thailand", "Capital":"Bangkok", "area":513120},
     {"id":2, "name":"australia", "Capital":"Canberra", "area":7617930},
-    {"id":3, "name":"Egypt", "Capital":"Cairo", "area":1010408}
-    {"id"}
+    {"id":3, "name":"Egypt", "Capital":"Cairo", "area":1010408},
+    {"id":4, "name":"Spain", "Capital":"Madrid", "area":30000}
 ]
