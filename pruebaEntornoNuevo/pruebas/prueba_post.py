@@ -1,11 +1,13 @@
 import requests
-url= "https://jsonplaceholder.typicode.com/users/1/todos" 
+url= "http://localhost:5050/directores"
 
 
 
-dict = {'userId':2, 'title':"Hacer tareas", 'completed':False }
+dict = {"DNI":"33333389K", "Nombre":"ayuda","Apellidos":"sos","email":"sosayuda@gmail.com"}
 
 response=requests.post (url, json=dict)
 
 print ("Código de estado: ", response.status_code)
 print (response.json())
+
+

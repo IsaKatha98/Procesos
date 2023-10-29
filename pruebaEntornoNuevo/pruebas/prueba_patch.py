@@ -1,9 +1,8 @@
 import requests
-url= "https://jsonplaceholder.typicode.com/todos/6" 
+url= "http://localhost:5050/directores/5"
 
 
-
-dict = {'userId':5 }
+dict = {'Nombre':"ayuda otra vez" }
 
 response=requests.patch (url, json=dict)
 

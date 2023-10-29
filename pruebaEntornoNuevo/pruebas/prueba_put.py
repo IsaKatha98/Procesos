@@ -1,9 +1,7 @@
 import requests
-url= "https://jsonplaceholder.typicode.com/todos/5" 
+url= "http://localhost:5050/directores/5"
 
-
-
-dict = {'userId':2, 'title':"Hacer tareas", 'completed':False }
+dict = {"Nombre":"SOS"}
 
 response=requests.put (url, json=dict)
 

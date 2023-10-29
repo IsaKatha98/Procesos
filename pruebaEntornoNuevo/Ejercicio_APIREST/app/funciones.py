@@ -3,13 +3,13 @@ from flask import *
 #Lectura del fichero.
 def leeFichero(nombreFichero):
     archivo=open(nombreFichero, "r")
-    countries=json.load(archivo)
+    data=json.load(archivo)
     archivo.close()
-    return countries
+    return data
 
 
-def escribeFichero(countries,nombreFichero):
+def escribeFichero(nombreFichero,data):
     archivo=open(nombreFichero, "w")
-    json.dump(countries,archivo)
+    json.dump(data,archivo)
     archivo.close
 
