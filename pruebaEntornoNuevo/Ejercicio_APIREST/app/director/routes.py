@@ -17,13 +17,13 @@ def find_next_id():
 
     return max+1
 
-
+#Método get que lee el fichero de los directores.
 @directorBP.get("/")
 def get_directores():
     directores=leeFichero(ficheroDirectores)
     return jsonify(directores)
 
-
+#Método get que lee el fichero y busca un id concreto.
 @directorBP.get("/<int:id>")
 def get_director(id):
     directores=leeFichero(ficheroDirectores)
@@ -32,6 +32,7 @@ def get_director(id):
             return director, 200
     return {"error": "Director not found"}, 404
 
+#Método post que añade un conjunto de datos al fichero.
 @directorBP.post("/")
 def add_director():
     directores=leeFichero(ficheroDirectores)
@@ -40,11 +41,11 @@ def add_director():
         director["id"]=find_next_id()
         directores.append(director)
         escribeFichero(ficheroDirectores, directores)
-
         return director, 201
-    
     return {"error":"Request must be JSON"}, 415
 
+#Método put que edita todos los datos de un conjunto.
+#Método patch que edita un valor de un dato concreto.
 @directorBP.put("/<int:id>")
 @directorBP.patch("/<int:id>")
 def modify_director(id):
@@ -56,10 +57,11 @@ def modify_director(id):
                 for element in newDirector:
                     director[element] = newDirector[element]
                 escribeFichero(ficheroDirectores, directores)
-                return director, 200
-            
+                return director, 200          
     return {"error": "Request must be JSON"}, 415
 
+#Método delete que borra los datos de un id concreto y los valores asociados
+#en el fichero Supermercados.
 @directorBP.delete("/<int:id>")
 def delete_director(id):
     directores=leeFichero(ficheroDirectores)
@@ -75,6 +77,7 @@ def delete_director(id):
             return {}, 200
     return {"error": "Director not found"}, 404
 
+#Método get de un id concreto y sus datos asociados en el fichero Supermercados.
 @directorBP.get('/<int:id>/supermercados')
 def get_supermercados(id):
     list = []

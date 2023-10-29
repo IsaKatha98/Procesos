@@ -14,15 +14,15 @@ def find_next_id():
     for supermercado in supermercados:
         if supermercado["id"] > max:
             max = supermercado["id"]
-
     return max+1
 
-
+#Método get que lee el fichero de los supermercados.
 @supermercadosBP.get("/")
 def get_supermercados():
     supermercados=leeFichero(ficheroSupermercados)
     return jsonify(supermercados)
 
+#Método get que lee el fichero y busca un id concreto.
 @supermercadosBP.get("/<int:id>")
 def get_supermercado(id):
     supermercados=leeFichero(ficheroSupermercados)
@@ -31,6 +31,7 @@ def get_supermercado(id):
             return supermercado, 200
     return {"error": "Supermercado not found"}, 404
 
+#Método post que añade un conjunto de datos al fichero.
 @supermercadosBP.post("/")
 def add_supermercado():
     supermercados=leeFichero(ficheroSupermercados)
@@ -39,11 +40,11 @@ def add_supermercado():
         supermercado["id"]=find_next_id()
         supermercados.append(supermercado)
         escribeFichero(ficheroSupermercados, supermercados)
-
         return supermercado, 201
-    
     return {"error":"Request must be JSON"}, 415
 
+#Método put que edita todos los datos de un conjunto.
+#Método patch que edita un valor de un dato concreto.
 @supermercadosBP.put("/<int:id>")
 @supermercadosBP.patch("/<int:id>")
 def modify_supermercado(id):
@@ -59,6 +60,7 @@ def modify_supermercado(id):
             
     return {"error": "Request must be JSON"}, 415
 
+#Método delete que borra los datos de un id concreto.
 @supermercadosBP.delete("/<int:id>")
 def delete_supermercado(id):
     supermercados=leeFichero(ficheroSupermercados)
