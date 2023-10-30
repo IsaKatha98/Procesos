@@ -1,4 +1,5 @@
 from flask import *
+from flask_jwt_extended import jwt_required
 from app.funciones import *
 
 #Guardamos el fichero.
@@ -34,6 +35,8 @@ def get_director(id):
 
 #Método post que añade un conjunto de datos al fichero.
 @directorBP.post("/")
+#Requiere un token de usuario.
+@jwt_required()
 def add_director():
     directores=leeFichero(ficheroDirectores)
     if request.is_json:
@@ -48,6 +51,8 @@ def add_director():
 #Método patch que edita un valor de un dato concreto.
 @directorBP.put("/<int:id>")
 @directorBP.patch("/<int:id>")
+#Requiere un token de usuario.
+@jwt_required()
 def modify_director(id):
     directores=leeFichero(ficheroDirectores)
     if request.is_json:
@@ -63,6 +68,8 @@ def modify_director(id):
 #Método delete que borra los datos de un id concreto y los valores asociados
 #en el fichero Supermercados.
 @directorBP.delete("/<int:id>")
+#Requiere un token de usuario.
+@jwt_required()
 def delete_director(id):
     directores=leeFichero(ficheroDirectores)
     supermercados= leeFichero(ficheroSupermercados)

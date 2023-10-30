@@ -1,4 +1,5 @@
 from flask import *
+from flask_jwt_extended import jwt_required
 from app.funciones import *
 
 #Guardamos el fichero.
@@ -33,6 +34,8 @@ def get_supermercado(id):
 
 #Método post que añade un conjunto de datos al fichero.
 @supermercadosBP.post("/")
+#Requiere un token de usuario.
+@jwt_required()
 def add_supermercado():
     supermercados=leeFichero(ficheroSupermercados)
     if request.is_json:
@@ -47,6 +50,8 @@ def add_supermercado():
 #Método patch que edita un valor de un dato concreto.
 @supermercadosBP.put("/<int:id>")
 @supermercadosBP.patch("/<int:id>")
+#Requiere un token de usuario.
+@jwt_required()
 def modify_supermercado(id):
     supermercados=leeFichero(ficheroSupermercados)
     if request.is_json:
@@ -62,6 +67,8 @@ def modify_supermercado(id):
 
 #Método delete que borra los datos de un id concreto.
 @supermercadosBP.delete("/<int:id>")
+#Requiere un token de usuario.
+@jwt_required()
 def delete_supermercado(id):
     supermercados=leeFichero(ficheroSupermercados)
     for supermercado in supermercados:
