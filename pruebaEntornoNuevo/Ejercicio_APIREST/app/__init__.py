@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY']='1234'
+app.config['SECRET_KEY']='tu_clave'
 jwt=JWTManager(app)
 
 app.register_blueprint(usersBP,url_prefix="/users")
