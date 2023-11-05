@@ -46,5 +46,13 @@
         "Regim\u00e9n": "Almac\u00e9n",
         "Superficie": "2.3",
         "id": 6
+    },
+    {
+        "Direccion": "San Fabricio, 13",
+        "Fecha": "12/03/2004",
+        "IdDirector": "2",
+        "Regimen": "Tienda",
+        "Superficie": "2.4",
+        "id": 7
     }
 ]

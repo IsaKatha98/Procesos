@@ -3,10 +3,11 @@ from .director.routes import directorBP
 from .supermercado.routes import supermercadosBP
 from .users.routes import usersBP
 from flask_jwt_extended import JWTManager
+from app.funciones import*
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY']='tu_clave'
+app.config['SECRET_KEY']=randomKey()
 jwt=JWTManager(app)
 
 app.register_blueprint(usersBP,url_prefix="/users")

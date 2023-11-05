@@ -1,4 +1,6 @@
 from flask import *
+import string
+import random
 
 #Método que lee del fichero.
 def leeFichero(nombreFichero):
@@ -13,3 +15,18 @@ def escribeFichero(nombreFichero,data):
     json.dump(data,archivo)
     archivo.close
 
+#Método que genera una cadena aleatoria.
+def randomKey():
+
+    tamKey=8
+
+    randomKey= "".join(
+        random.SystemRandom().choice(string.ascii_letters + string.digits)
+                for _ in range(tamKey)
+        )
+        
+    return randomKey
+
+
+    
+    
