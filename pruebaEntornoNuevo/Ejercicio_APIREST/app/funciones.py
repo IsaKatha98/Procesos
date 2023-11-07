@@ -5,9 +5,14 @@ import random
 #Método que lee del fichero.
 def leeFichero(nombreFichero):
     archivo=open(nombreFichero, "r")
-    data=json.load(archivo)
-    archivo.close()
-    return data
+
+    #En caso de que el fichero este vacío, atrapamos el error
+    try:
+        data=json.load(archivo)
+        archivo.close()
+        return data
+    except json.JSONDecodeError:
+        return []
 
 #Método que escribe en el fichero.
 def escribeFichero(nombreFichero,data):
