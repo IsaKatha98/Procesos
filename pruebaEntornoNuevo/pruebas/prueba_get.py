@@ -1,6 +1,11 @@
 import requests
 url= "https://jsonplaceholder.typicode.com/posts" 
-response=requests.get (url)
+
+#Cuando nos pida una autenticación en el request 
+token="token_creado"
+headers={"Authorization":"Bearer"+token}
+
+response=requests.get (url, headers=headers)
 
 print ("Código de estado: ", response.status_code)
 #print (response.json())
