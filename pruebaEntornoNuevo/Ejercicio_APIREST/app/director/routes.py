@@ -86,6 +86,7 @@ def delete_director(id):
 
 #Método get de un id concreto y sus datos asociados en el fichero Supermercados.
 @directorBP.get('/<int:id>/supermercados')
+@jwt_required
 def get_supermercados(id):
     list = []
     supermercados= leeFichero("app/ficheros/ficheroSupermercados.json")

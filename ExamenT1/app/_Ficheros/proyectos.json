@@ -1,0 +1,15 @@
+[
+    {
+        "id": 1,
+        "Nombre": "Desarrollo de interfaces",
+        "Descripcion": "Asignatura de 2º DAM",
+        "idDepartamento":1
+    },
+     
+    {
+        "id":2,
+        "Nombre":"Programación",
+        "Descripcion":"Asignatura de 1º DAM",
+        "idDepartamento":1
+    }
+]
