@@ -22,7 +22,8 @@ def registroUser():
         users.append(user)
         escribeFichero(ficheroUsers, users)
 
-        token=create_access_token(identity=user["username"])
+        #No hacía falta generar el token, porque no había que devolverlo.
+        #token=create_access_token(identity=user["username"])
         return {"Se ha registrado correctamente"}, 201
     
     return{"error":"El diccionario debe estar en formato JSON"}, 415

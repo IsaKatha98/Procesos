@@ -19,7 +19,7 @@ def get_departamento(id):
         if departamento["id"]==id:
             return departamento, 200
         
-        return {"error":"No hay ningún departamento con ese id"}, 404
+    return {"error":"No hay ningún departamento con ese id"}, 404
 
 
 @departamentosBP.get("/<int:id>/proyectos")
@@ -46,18 +46,19 @@ def modifica_departamento(id):
                 for element in newDepartamento:
                     departamento[element]=newDepartamento[element]
 
-                    #Escribimos en el fichero la modificación.
-                    escribeFichero(newDepartamento)
-                    return departamento, 200
-            #En el caso en el que el id que pasamos no exista    
-            else:
-                 #le asignamos el id que se pasa por parámetro.
-                 newDepartamento["id"]==id
+                #Escribimos en el fichero la modificación.
+                escribeFichero(newDepartamento)
+                return departamento, 200
+        #Cuando terminamos de recorrer la lista y no lo encuentra,
+        #significa que no existe en la lista, lo creo de nuevo.    
+        
+        #le asignamos el id que se pasa por parámetro.
+        newDepartamento["id"]==id
 
-                 #Añadimos el departamento nuevo.
-                 departamentos.append(newDepartamento)
-                 escribeFichero(ficheroDepartamentos, departamentos)
-                 return newDepartamento,201
+        #Añadimos el departamento nuevo.
+        departamentos.add(newDepartamento)
+        escribeFichero(ficheroDepartamentos, departamentos)
+        return newDepartamento,201
     return {"error":"Debe pasarse un diccionario con formato JSON"}, 415
 
 
