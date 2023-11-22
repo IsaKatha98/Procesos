@@ -25,4 +25,5 @@ if __name__=="__main__":
 
         results =pool.starmap(suma, numbers)
 
+    print("All processes have finished.")
     

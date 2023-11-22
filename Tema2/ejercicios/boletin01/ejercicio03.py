@@ -1,42 +1,41 @@
 from multiprocessing import*
 
-def suma (num):
-    
+def suma (queue):
     res=0
-
-    for n in range (num+1):
-        res=res+n
-    
-    print ("suma igual a ",res)
+    while True:
+        num=queue.get()
+        if num is None:
+            break
+        for n in range (num+1):
+            res+=n
+        print ("suma igual a ",res)
+        res=0
 
 #Función que lee el fichero.
-def producer ():
-    with open("ejercicio03Fichero.txt", "r") as fichero:
-        
-        numbers=[]
-
-        linea=fichero.readline()
-        numbers+=linea
-        while linea:
-            linea=fichero.readline()
-            numbers+=linea
-
-            #TODO:hay que añadir None , al final de la cola
-
+def producer (ficheroRuta, queue):
+    with open(ficheroRuta, "r") as fichero:
+        for linea in fichero:
+            queue.put(int(linea))
+    queue.put(None)
+        #Ponemos un None al final de la cola.
+      
 
 if __name__=="__main__":
 
+    #Definimos la ruta del fichero de lectura.
+    ficheroRuta="Tema2/ejercicios/boletin01/ficheros/ejercicio03Fichero.txt"
     queue=Queue()
     
-    p1=Process(target=producer, args=(queue,))
+    p1=Process(target=producer, args=(ficheroRuta,queue))
     p2=Process(target=suma, args=(queue,))
 
     p1.start()
     p2.start()
 
     p1.join()
-    queue.put(None)
 
     p2.join()
+
+    print("Se han terminado todos los procesos.")
 
    

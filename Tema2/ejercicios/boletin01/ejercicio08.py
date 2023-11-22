@@ -4,7 +4,11 @@ from multiprocessing import *
 def leeFichero(rutaFichero, conn): 
     with open(rutaFichero, "r") as fichero:
         for linea in fichero:
-            conn.send(int(linea))
+            num=linea.strip().split(" ")
+            num1,num2=map(int,num)
+            numeros=(num1,num2)
+            conn.send(numeros)
+            
     #Ponemos None y cerramos.
     conn.send(None)
     conn.close()
@@ -15,14 +19,18 @@ def suma (conn):
         num=conn.recv()
         if num is None:
             break
-        for n in range (num+1):
+        if (num[0]>num[1]):
+        #Intercambiamos los valores de las variables.
+            num=num[1],num[0]
+
+        for n in range (num[0],num[1]+1):
             res+=n
         print ("suma igual a ",res)
         res=0
 
 if __name__=="__main__":
     funcion_leer,funcion_sumar=Pipe()
-    rutaFichero="Tema2/ejercicios/boletin01/ficheros/ejercicio03Fichero.txt"
+    rutaFichero="Tema2/ejercicios/boletin01/ficheros/fichero07.txt"
     
     #Hacemos los procesos.
     p1=Process(target=leeFichero, args=(rutaFichero, funcion_leer))
