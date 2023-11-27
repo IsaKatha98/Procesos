@@ -22,7 +22,7 @@ def suma (conn):
 
 if __name__=="__main__":
     funcion_leer,funcion_sumar=Pipe()
-    rutaFichero="Tema2/ejercicios/boletin01/ficheros/ejercicio03Fichero.txt"
+    rutaFichero="ejercicios/boletin01/ficheros/ejercicio03Fichero.txt"
     
     #Hacemos los procesos.
     p1=Process(target=leeFichero, args=(rutaFichero, funcion_leer))

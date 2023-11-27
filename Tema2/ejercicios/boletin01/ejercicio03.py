@@ -23,9 +23,9 @@ def producer (ficheroRuta, queue):
 if __name__=="__main__":
 
     #Definimos la ruta del fichero de lectura.
-    ficheroRuta="Tema2/ejercicios/boletin01/ficheros/ejercicio03Fichero.txt"
+    ficheroRuta="ejercicios/boletin01/ficheros/ejercicio03Fichero.txt"
     queue=Queue()
-    
+
     p1=Process(target=producer, args=(ficheroRuta,queue))
     p2=Process(target=suma, args=(queue,))
 

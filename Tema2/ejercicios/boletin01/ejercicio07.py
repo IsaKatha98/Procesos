@@ -34,7 +34,7 @@ def suma (queue):
 if __name__=="__main__":
 
     #Definimos la ruta del fichero de lectura.
-    ficheroRuta="Tema2/ejercicios/boletin01/ficheros/fichero07.txt"
+    ficheroRuta="ejercicios/boletin01/ficheros/fichero07.txt"
     queue=Queue()
     
     p1=Process(target=leeFichero, args=(ficheroRuta,queue))
