@@ -1,37 +1,37 @@
 from multiprocessing import *
 import time
+import random
 
-def randomIP(left:conn):
+def randomIP(p1left:PipeConnection):
+     
+     for _ in range (10):
+     
+          ip=""
 
+          for i in range(4):
+               octeto=random.randint(0,255)
+               ip+=str(octeto)
+               if i!=3:
+           
+                   ip+="."
+          #cuando ha terminado de recorrer el for, manda la ip generada.
+          else:
+               p1left.send(ip)
+          
+def filtraABC(p1right:PipeConnection, p2left:PipeConnection):
+     ip=p1right.recv()
+     octeto1=
 
-def filtersP1():
-
-
-
-def filtersAndPrints():
 
 
 if __name__=="__main__":
 
      #Declaramos tiempo de inicio
     inicio=time.time()
-
-    #Declares the pipe.
-    left1, left2, right1, right2=Pipe()
     
-    #Hacemos los procesos.
-    p1=Process(target=randomIP, args=(left1,))
-    p2=Process(target=filtersP1, args=(left2,right1))
-    p3=Process(target=filtersAndPrints, args=(right2,))
+    p1left,p1right=Pipe()
+    p2left, p2right=Pipe()
 
-    #Iniciamos los procesos.
-    p1.start()
-    p2.start()
-    p3.start()
-
-    #Esperamos a que terminen.
-    p1.join()
-    p2.join()
-    p3.join()
-
-    print("All processes have finished.")
+    p1=Process(target=randomIP, args=(p1left,))
+    p2=Process(target=filtraABC, args=(p1right,p2left))
+   
