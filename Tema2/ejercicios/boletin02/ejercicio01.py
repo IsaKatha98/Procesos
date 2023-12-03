@@ -9,16 +9,15 @@ def countsVocals (vocal):
     
     #calls the fileReader functions
     chain=fileReader()
-    for vocal in chain:
-        res=vocal.count()
+    for letras in chain:
+        res+=letras.count(vocal)
     
     print (vocal,"repeats itself", res, "times")
 
 #Function that reads a file
 def fileReader ():
 
-    fileRoute="ejercicios/boletin02/ficheros/vocales.txt"
-
+    fileRoute="Tema2/ejercicios/boletin02/ficheros/vocales.txt" 
     with open(fileRoute, "r") as file:
         for line in file:
             chain=line.strip()
