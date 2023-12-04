@@ -16,6 +16,7 @@ def random6 (rutaFichero):
 #Función que calculará la media de cada alumno.
 def calculaMedias (fichero, nombreAlumno):
     totalNotas=0
+    contador=0
     #leemos el fichero que nos pasan
     with open (fichero, 'r') as file:
         lineas=file.readlines()
@@ -23,14 +24,15 @@ def calculaMedias (fichero, nombreAlumno):
         #recorremos lineas y vamos sumando a una variable
         for i in lineas:
             totalNotas+=float(i)
+            contador+=1
 
         #Hacemos la media.
         else:
-            mediaNotas=totalNotas/int(i)
+            mediaNotas=totalNotas/contador
         #abrimos otro fichero nuevo donde escribiremos las medias.
         #lo abrimos con "a" para que escriba concatenando
             with open ("medias.txt", "a") as newFile:
-                newFile.write(f"{mediaNotas} {nombreAlumno}\n")
+                newFile.write(f"{round(mediaNotas,2)} {nombreAlumno}\n")
 
             newFile.close()
 
@@ -47,7 +49,7 @@ def calculaNotaMax ():
 
             #comparamos si el primer valor de la tupla es mayor que notaMaxima.
             #si lo es, lo seteamos como la nueva notaMax.
-            if linea[0]>notaMax[0]:
+            if float(linea[0])>float(notaMax[0]):
                 notaMax=linea
        else:
         #Pasamos notaMax a string.
@@ -83,15 +85,7 @@ if __name__=="__main__":
 
     p3=Process(target=calculaNotaMax)
     p3.start()
-
-
-
-
-    
-
-    
-   
-
+    p3.join()
 
     fin=time.time()
 
