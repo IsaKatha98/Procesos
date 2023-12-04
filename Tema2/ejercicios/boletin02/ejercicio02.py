@@ -5,9 +5,8 @@ import random
 
 def randomIP(p1left:PipeConnection):
 
-     ip=""
-
      for _ in range(10):
+          ip=""
 
           for i in range(4):
                octeto=random.randint(0,255)
@@ -15,36 +14,50 @@ def randomIP(p1left:PipeConnection):
                if i!=3:
                
                     ip+="."
-               #cuando ha terminado de recorrer el for, manda la ip generada.
           else:
+               #manda la ip generada.
                p1left.send(ip)
+     else:
+     #añadimos un none cuando termine el bucle for
+          p1left.send(None)
           
 def filtraABC(p1right:PipeConnection, p2left:PipeConnection):
      #Recibimos la ip.
      ip=p1right.recv()
+
+     while ip!=None:
      #Aquí hay que hacer un split del ip (string) que nos llega
-     octeto1=ip.split(".")
+          octeto1=ip.split(".")
 
      #Si el primer octeto es mayor de 223 entonces es cuando la ip es de clase D.
-     if int(octeto1[0])<224:
+          if int(octeto1[0])<224:
           #Mandamos la ip al proceso 3.
-          p2left.send(ip)
+               p2left.send(ip)
+
+          #Pedimos otra ip.
+          ip=p1right.recv()
+     p2left.send(None)
 
 def leeIP (p2right:PipeConnection):
      #Recibimos la ip.
      ip=p2right.recv()
 
+     while ip!=None:
+
      #Clasificamos según la clase de la ip.
-     octeto1=ip.split(".")
+          octeto1=ip.split(".")
 
-     if int(octeto1[0])<128:
-          print (ip, ": es una IP de clase A")
+          if int(octeto1[0])<128:
+               print (ip, ": es una IP de clase A")
 
-     elif 128<int(octeto1[0])<192:
-          print(ip, ":esta IP es de clase B")
+          elif 128<int(octeto1[0])<192:
+               print(ip, ":esta IP es de clase B")
 
-     else:
-          print (ip,": esta IP es de clase C")
+          else:
+               print (ip,": esta IP es de clase C")
+
+          #Pedimos otra ip.
+          ip=p2right.recv()
 
 
 
