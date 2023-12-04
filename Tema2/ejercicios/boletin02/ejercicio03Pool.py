@@ -9,29 +9,28 @@ def random6 (rutaFichero):
         #Hacemos el bucle for.
         for _ in range(6):
             #generamos seis números aleatorios con decimales y los vamos guardando en el fichero.
-            num=round(random.uniform(1,6),2)
+            num=round(random.uniform(0,10),2)
             #guardamos num en el archivo y le ponemos un salto de línea.
             file.write(f"{num}\n")
 
 #Función que calculará la media de cada alumno.
-def calculaMedias (rutaFichero, nombreAlumno):
+def calculaMedias (fichero, nombreAlumno):
+    totalNotas=0
     #leemos el fichero que nos pasan
-    with open (rutaFichero, 'r') as file:
-        lineas=file.readlines().strip()
-
-        #cerramos el archivo.
-        file.close()
+    with open (fichero, 'r') as file:
+        lineas=file.readlines()
 
         #recorremos lineas y vamos sumando a una variable
         for i in lineas:
-            totalNotas+=i
+            totalNotas+=float(i)
 
         #Hacemos la media.
         else:
-            mediaNotas=totalNotas/i
+            mediaNotas=totalNotas/int(i)
         #abrimos otro fichero nuevo donde escribiremos las medias.
-            with open ("medias.txt", "w") as newFile:
-                newFile.write(mediaNotas," ", nombreAlumno)
+        #lo abrimos con "a" para que escriba concatenando
+            with open ("medias.txt", "a") as newFile:
+                newFile.write(f"{mediaNotas} {nombreAlumno}\n")
 
             newFile.close()
 
@@ -63,42 +62,35 @@ if __name__=="__main__":
     #iniciamos el tiempo.
     inicio=time.time()
 
-    #inicializamos una variable alumnos
-    alumnos=[]
+    #con pool
+    with Pool(processes=10) as pool1:
+        ficheros=[]
+        for i in range(10):
+            ficheros.append(f"Alumno{i+1}.txt")
+        pool1.map(random6,ficheros)
+    #hacemos un join pa que se espere a que el pool1 termine.
+    pool1.join()
+
+    with Pool(processes=10) as pool2:
+        ficheros=[]
+        for i in range(10):
+            #creamos una tupla con los dos argumentos que necesitamos
+            args=(f"Alumno{i+1}.txt",f"Alumno{i+1}")
+            #añadimos los argumentos a la lista
+            ficheros.append(args)
+        pool2.starmap(calculaMedias,ficheros)
+
+
     
-    #Hacemos un bucle for.
-    for i in range(10):
-         #creamos los ficheros.
-        if i<10:
-       
-            nombreFichero=f"Alumno{i+1}.txt"
-        with open(nombreFichero,"w"):
-            pass #pass es para que el fichero se cree vacío.
-        #lanzamos el proceso,
-        p1=Process(target=random6, args=(nombreFichero,))
-        p1.start()
-        
 
-        #guardamos el nombre de los archivos, ya que nos harán falta para el pool.
-        alumnos.append(nombreFichero)
-    else: 
-        #esperamos a que termine p1.
-        p1.join()
-    #ahora hacemos el pool.
-    #TODO: no funciona
-        with Pool(processes=10) as pool:
-            alumnos
-        results=pool.map(calculaMedias, alumnos)
-      
-        #lanzamos el último proceso.
+    
+   
 
-        p3=Process(target=calculaNotaMax)
-        p3.start()
 
     fin=time.time()
 
-    #esto me da raro
-    #TODO:calcular tiempos, preguntar
     print("Tiempo", fin-inicio)
 
             
+
+       
