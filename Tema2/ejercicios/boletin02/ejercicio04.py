@@ -1,8 +1,11 @@
 from multiprocessing import *
 import time
+import sys
 
 #Función que lee el fichero y busca según el año de las películas.
 def buscaPelis(cola, fichero, year):
+    #hacemos un boolean por si no encuentra el año.
+    yearFound=False
 
     #abrimos el fichero en modo lectura.
     with open (fichero, "r") as file:
@@ -16,6 +19,12 @@ def buscaPelis(cola, fichero, year):
             if linea[1]==(str(year)):
                 #enviamos la peli que sea
                 cola.put(linea[0])
+                yearFound=True
+        #si llegamos al final del archivo y no se ha encontrado el año, ponemos mensajito.
+        if yearFound is False:
+            print("No hay películas de ese año")
+            cola.put(None)
+    
         #ponemos none.
         else:
             cola.put(None)
@@ -24,16 +33,20 @@ def buscaPelis(cola, fichero, year):
 def clasificaPelis(cola, year):
     #recibimos la peli
     peli=cola.get()
-    #bucle while para que se repita mientras la cola no pase None.
-    while peli!=None:
-        #abrimos un fichero en modo"a" para concatenar
-        with open(f"peliculas{year}","a") as file:
-            #añadimos las peliculas
-            file.write(f"{peli}\n")
+    #Comprobamos que peli no es None, pa que finalize el proceso
+    if peli!=None:
+        #hacmeos un fichero.
+        archivo=f"peliculas{year}"
+        #bucle while para que se repita mientras la cola no pase None.
+        while peli!=None:
+            #abrimos un fichero en modo"a" para concatenar
+            with open(archivo,"a") as file:
+                #añadimos las peliculas
+                file.write(f"{peli}\n")
 
-        #pedimos la siguiente peli.
-        peli=cola.get()
-    else:
+            #pedimos la siguiente peli.
+            peli=cola.get()
+
         print("El fichero se ha generado con éxito")
 
 
