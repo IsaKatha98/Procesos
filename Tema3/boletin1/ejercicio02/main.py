@@ -1,19 +1,6 @@
+from hilos import *
 
-from collections.abc import Callable, Iterable, Mapping
-import threading
-from typing import Any
-
-class MyThread (threading.Thread):
-    #atributo
-    shared=0
-
-    #esto es un constructor de la clase
-    def __init__(self, shared):
-      threading.Thread.__init__(self)
-      self.shared=shared
-
-    def run(self):
-        while shared<1000:
-            shared+=1
-       
-          
+if __name__=="__main__":
+    for i in range (0,10):
+        hilo  = Contador(f"hilo{i}")
+        hilo.start()
