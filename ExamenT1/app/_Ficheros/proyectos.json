@@ -2,14 +2,19 @@
     {
         "id": 1,
         "Nombre": "Desarrollo de interfaces",
-        "Descripcion": "Asignatura de 2º DAM",
-        "idDepartamento":1
+        "Descripcion": "Asignatura de 2\u00c2\u00ba DAM",
+        "idDepartamento": 1
     },
-     
     {
-        "id":2,
-        "Nombre":"Programación",
-        "Descripcion":"Asignatura de 1º DAM",
-        "idDepartamento":1
+        "id": 2,
+        "Nombre": "Programaci\u00c3\u00b3n",
+        "Descripcion": "Asignatura de 1\u00c2\u00ba DAM",
+        "idDepartamento": 1
+    },
+    {
+        "id": 3,
+        "Nombre": "Bases de Datos",
+        "Descripcion": "Asignatura de 1\u00ba DAM",
+        "idDepartamento": "1"
     }
 ]

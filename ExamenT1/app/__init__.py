@@ -1,6 +1,9 @@
 from flask import *
 from flask_jwt_extended import JWTManager
-from Departamentos.routes import *
+from Departamentos.routes import departamentosBP
+from Proyectos.routes import proyectosBP
+from Users.routes import usersBP
+
 
 #from Proyectos import proyectosBP
 #from Users import usersBP
@@ -14,8 +17,8 @@ jwt=JWTManager(app)
 
 #registramos los blueprints.
 app.register_blueprint(departamentosBP, url_prefix="/departamentos")
-#app.register_blueprint(routes.proyectosBP, url_prefix="/proyectos")
-#app.register_blueprint(usersBP, url_prefix="/users")
+app.register_blueprint(proyectosBP, url_prefix="/proyectos")
+app.register_blueprint(usersBP, url_prefix="/users")
 
 if __name__=="__main__":
     app.run(debug=True, host="0.0.0.0", port=5050)

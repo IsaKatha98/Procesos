@@ -1,6 +1,5 @@
 import requests
 
-
 #Definimos una url
 url="http://localhost:5050/departamentos/1/proyectos"
 

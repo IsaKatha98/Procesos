@@ -1,6 +1,5 @@
 from Utils.functions import *
-from flask import Blueprint
-from requests import *
+from flask import *
 import bcrypt
 from flask_jwt_extended import *
 
@@ -10,24 +9,21 @@ ficheroUsers="app/_Ficheros/users.json"
 #Hacemos el blueprint
 usersBP=Blueprint('users', __name__)
 
-@usersBP.post("/")
-def registroUser():
+@usersBP.post('/')
+def registerUser():
     users=leeFichero(ficheroUsers)
     if request.is_json:
         user=request.get_json()
-        password=user["password"].encode('utf-8')
+        password=user['password'].encode('utf-8')
         salt=bcrypt.gensalt()
         hashPassword=bcrypt.hashpw(password,salt).hex()
-        user["password"]=hashPassword
+        user['password']=hashPassword
         users.append(user)
-        escribeFichero(ficheroUsers, users)
-
-        #No hacía falta generar el token, porque no había que devolverlo.
-        #token=create_access_token(identity=user["username"])
-        return {"Se ha registrado correctamente"}, 201
+        escribeFichero(ficheroUsers,users)
+        token=create_access_token(identity=user['username'])
+        return{'token':token},201
     
-    return{"error":"El diccionario debe estar en formato JSON"}, 415
-
+    return{"error":"Request must be JSON"}, 415
 
 @usersBP.get("/")
 def loginUser():

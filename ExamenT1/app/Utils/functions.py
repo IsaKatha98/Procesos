@@ -7,12 +7,14 @@ def leeFichero (nombreFichero):
     archivo=open(nombreFichero,"r")
 
     #Comprobamos si el fichero está vacío o no.
-    if (archivo==""):
-        return ""
-    else:
+    try:
+
         data=json.load(archivo)
         archivo.close
         return data
+    
+    except json.JSONDecodeError:
+        return []
     
 def escribeFichero(nombreFichero, data):
     archivo=open(nombreFichero,"w")

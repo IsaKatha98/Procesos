@@ -1,13 +1,12 @@
-from requests import *
-
+import requests
 
 #Definimos una url
 url="http://localhost:5050/departamentos/1"
 
-response=request.get(url)
+response=requests.get(url)
 
 if (response.status_code==200):
-    print(response)
+    print(response.json())
 
 else:
     print(response)

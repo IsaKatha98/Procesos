@@ -4,7 +4,7 @@ from flask_jwt_extended import *
 
 
 #Asignamos la ubicación del fichero en una variable
-ficheroDepartamentos="app/_Ficheros/departamentos.json"
+ficheroDepartamentos="app/_Ficheros/departamentos.json" 
 ficheroProyectos="app/_Ficheros/proyectos.json"
 
 #Hacemos el blueprint

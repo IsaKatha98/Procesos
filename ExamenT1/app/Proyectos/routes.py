@@ -9,6 +9,16 @@ ficheroProyectos="app/_Ficheros/proyectos.json"
 #Hacemos el blueprint
 proyectosBP=Blueprint('proyectos', __name__)
 
+#Definimos una función para que asigne el siguiente id.
+def find_next_id():
+    supermercados=leeFichero(ficheroProyectos)
+    max = supermercados[0]["id"]
+    for supermercado in supermercados:
+        if supermercado["id"] > max:
+            max = supermercado["id"]
+    return max+1
+
+
 @proyectosBP.get("/")
 def get_proyectos():
     proyectos=leeFichero(ficheroProyectos)
@@ -18,33 +28,21 @@ def get_proyectos():
 def crea_proyecto():
     proyectos=leeFichero(ficheroProyectos)
     if request.is_json:
-        idDepartamento=request.get_json("idDepartamento")
+        proyecto=request.get_json()
+        proyecto["id"]=find_next_id() #Falta definir esta función
+        proyectos.append(proyecto)
+
+        escribeFichero(ficheroProyectos, proyectos)
+
+        return proyecto, 201
         
-        if idDepartamento!="":
-            return {"error":"La petición está mal formada"}, 400
-        else:
-            proyecto=request.get_json()
-            proyecto["id"]=find_next_id() #Falta definir esta función
-            proyectos.append(proyecto)
-
-            escribeFichero(ficheroProyectos, proyectos)
-
-            return proyecto, 201
+    return {"error":"El diccionario debe estar en formato JSON"}, 415
         
-    return {"errro":"El diccionario debe estar en formato JSON"}, 415
-        
-
-
-
-
-
-
 @proyectosBP.delete("/<int:id>")
 def borra_proyecto(id):
-   proyectos=leeFichero(ficheroProyectos)
-   for proyecto in proyectos:
-       if proyecto["id"]==id:
-           proyectos.remove(proyecto)
-
-           return {""}, 200
-       return {"error":"No se ha encontrado el proyecto"}, 404 
+    proyectos=leeFichero(ficheroProyectos)
+    for proyecto in proyectos:
+        if proyecto["id"]==id:
+            proyectos.remove(proyecto)
+            return "{}", 200
+    return {"error":"No se ha encontrado el proyecto"}, 404 
