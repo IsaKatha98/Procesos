@@ -10,22 +10,29 @@ class NumeroOculto (Thread):
       Thread.__init__(self, name=nombre)
 
     def run(self):
-
-         #mientras no se haya acertado, dejamos que pasen de uno en uno.
-        NumeroOculto.bloqueo.acquire()
-        #comprobamos si ya se ha acertado el numero.
-        while not NumeroOculto.numAcertado:
-           
-            numRandom=random.randint(0,100)
-            print("Hilo", self.name,"num:",numRandom)
+        
+        while True:
+          #mientras no se haya acertado, dejamos que pasen de uno en uno.
+          NumeroOculto.bloqueo.acquire()
+          #comprobamos si ya se ha acertado el numero.
+          if not NumeroOculto.numAcertado:
              
-            if numRandom==NumeroOculto.num:
-                print("El hilo", self.name,"ha acertado el número. Es", NumeroOculto.num)
-                NumeroOculto.numAcertado=True
-                #aquí hacemos un release del bloqueo.
-                NumeroOculto.bloqueo.release()
+              numRandom=random.randint(0,100)
+              print("Hilo", self.name,"num:",numRandom)
+              NumeroOculto.bloqueo.release()
+              if numRandom==NumeroOculto.num:
+                  NumeroOculto.bloqueo.acquire()
+                  print("El hilo", self.name,"ha acertado el número. Es", NumeroOculto.num)
+                  NumeroOculto.numAcertado=True
+                  #aquí hacemos un release del bloqueo. 
+                  NumeroOculto.bloqueo.release()
+                  break
               
-                break
+          else:
+             NumeroOculto.bloqueo.release()
+             break
+                
+             
                  
             
           
