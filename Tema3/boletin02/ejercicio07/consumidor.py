@@ -1,21 +1,22 @@
 import random
 from threading import *
-import time
-from main import cond, cola
 
 class Consumidor(Thread):
 
-    def __init__(self, nombre):
+    def __init__(self, nombre, cola, cond):
       Thread.__init__(self, name=nombre)
+      self.cola=cola
+      self.cond=cond
 
     def run(self):
        while True:
         cadena="objeto"
-        with cond:
-            while cola.empty():
+        with self.cond:
+            while self.cola.empty():
                 print("Cola vacía")
-                cond.wait()
-            cadena= cola.get() #lo quitamos de la cola
+                self.cond.wait()
+            cadena= self.cola.get() #lo quitamos de la cola
         print(self.name,"está recogiendo el objeto...")
-        cond.notifyAll()
-        print (self.name, "ya ha recogido todo")
+        with self.cond:
+            self.cond.notifyAll()
+            print (self.name, "ya ha recogido todo")

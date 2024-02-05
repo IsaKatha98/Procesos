@@ -4,7 +4,6 @@ import time
 
 class Filosofos (Thread):
     
-    
     def __init__(self, nombre):
       Thread.__init__(self, name=nombre)
 
