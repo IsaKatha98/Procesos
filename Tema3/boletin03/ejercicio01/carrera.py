@@ -22,9 +22,9 @@ class Carrera(Thread):
         duracionCarrera=random.uniform(5,15)
         time.sleep(duracionCarrera)
 
-        print("El corredor", self.name, "ha terminado la carrera. Ha tardado:", round(duracionCarrera
+        print("El corredor", self.name, "ha terminado la carrera. Ha tardado:", round(duracionCarrera,2), "segundos.")
                                                                                       
-                                                                                        ,2), "segundos.")
+                                                                                        
 
 
 

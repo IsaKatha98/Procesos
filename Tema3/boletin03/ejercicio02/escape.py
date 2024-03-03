@@ -34,11 +34,6 @@ class Escape(Thread):
                         print("La persona", self.name,"ha acertado la clave. Es", Escape.clave)
                             
                         break
-            Escape.bloqueo.release()   
-               
-
-                        
-        
         print("La persona", self.name, "está esperando en la puerta.")
         #ahora tenemos que esperar a todos los hilos.
         if self.barrera.wait()==4:
