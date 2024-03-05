@@ -23,12 +23,13 @@ class Almacen(Thread):
         if Almacen.empiezaTurno.wait()==9:
             print("Todos los trabajadores empiezan a trabajar")
 
-        num= random.randint(1,6)
-        time.sleep(num)
+      
 
         while not Almacen.pedido.is_set():
             Almacen.pedido.set()
             print("Se genera un pedido")
+            num= random.randint(1,6)
+            time.sleep(num)
             print("Los trabajadores se ponen con el pedido")
             Almacen.pedido.clear()
             num= random.randint(1,6)
